@@ -1,35 +1,44 @@
 import time
 import os
 import traceback
-from openpyxl import Workbook
-from getters import * # Importing all of functions from our library getters.py
+import openpyxl
+from openpyxl.utils import get_column_letter
+from getters import *
 
 start = time.time()
 
 # Nom du fichier horodaté
 dateFile = time.strftime(getFileInfo("dateFormat"))
 fileType = getFileInfo("fileType")
-filename = "%s_%s.%s" % (getFileInfo("genre"), dateFile, fileType)
+path = getFileInfo("path")
+filename = "%s\%s_%s.%s" % (path, getFileInfo("genre"), dateFile, fileType)
 
-# le nombre d'enregistrement à partir de la section FileInfo
+# les colonnes
+section = getsection()
+fieldnames = getkeys(section[0])
+
 maxRecords = int(getFileInfo("maxRecords"))
 
-wb = Workbook()
+# création d'un classeur
+wb = openpyxl.Workbook()
+
+# création d'une feuille
 ws = wb.active
 
-try:
-    ws.append(fieldnames)
-    for i in range(0, maxRecords):
-        row = []
-        for field in fieldnames:
-            row.append(getData(field))
-        ws.append(row)
+# écrire les en-têtes de colonne
+for i, fieldname in enumerate(fieldnames):
+    col_letter = get_column_letter(i + 1)
+    ws.cell(row=1, column=i+1, value=fieldname)
 
-    wb.save(filename)
+# écrire les données
+for j in range(1, maxRecords+1):
+    row = []
+    for fieldname in fieldnames:
+        row.append(getData(fieldname))
+    ws.append(row)
 
-except:
-    os.remove(filename) # Remove file if any error occurs
-    traceback.print_exc()
+# enregistrer le classeur
+wb.save(filename)
 
 end = time.time()
-print("XLSX généré en "+ str(end - start) +" secondes")
+print("XLSX généré en " + str(end - start) + " secondes")

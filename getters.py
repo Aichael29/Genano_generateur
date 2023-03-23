@@ -2,125 +2,162 @@ import random
 import datetime
 import time
 import os
-import re
-from configparser import ConfigParser
+import configparser
 from dict import DICTIONNAIRE
+import re
 import sys
 
-#TYPE, FORMAT, VALUES = 0,1,2
-
-# le chemin absolut du fichier
+# le chemin absolu du fichier
 absPath = os.path.dirname(os.path.realpath(__file__))
 configFile = os.path.join(absPath, 'config.conf')
-data = ConfigParser()
+data = configparser.ConfigParser()
 # charger le fichier de conf
 data.read(configFile)
+maxRecords = data["fileInfos"]["maxRecords"]
 
-# les sections
-sectionName = list(data.sections())
-
-# les sous sections de la première section
-fieldnames = list(data[sectionName[0]].keys())
-
-
-#verifier les patterns du conf values à partir du dict
-def regex_checker(val, dtype):
-    if dtype in DICTIONNAIRE:
-        regex_pattern = DICTIONNAIRE[dtype]
-        pattern = re.compile(regex_pattern)
-        if not pattern.match(str(val)):
-            raise ValueError(f"{val} doesn't match the correspondent pattern of {dtype} in dict.py")
-    else:
-        raise ValueError(f"{dtype} type isn't included in dict.py")
-
-# fonction pour obtenir les infos sur le fichier CSV
+# fonction pour obtenir les cles
+def getkeys(section):
+    vals = []
+    for key in dict(data.items(section)):
+        vals.append(key)
+    return vals
+# fonction pour obtenir les vals des cles
+def getvalues(section, key):
+    nom = data[section][key].split(",")
+    return nom
+# fonction pour obtenir les sections
+def getsection():
+    vals = []
+    for section in data.sections():
+            vals.append(section)
+    return vals
+# fonction pour obtenir les infos sur le fichier
 def getFileInfo(undersection):
     field = data['fileInfos'][undersection]
     return field
 
-# convertir au type souhaité
-def convertTo(dval, dtype, limit=None):
-    res = []
-    res = [dtype(x) for x in dval.split('-')]
-    if not limit == None:
-        if len(res) == limit:
-            return res
-        else:
-            raise TypeError(f"'{dval}' is not the Length of {limit}")
-            return None
-    return res
 
-# obtenir un entier aleatoire
-def getRandomInt(val,form=""):
-    start , end = convertTo(val, int, 2)
-    return random.randint(start, end)
-
-# float aleatoire
-def getRandomFloat(val, form=""):
-    start , end = convertTo(val, float, 2)
-    randomFloat = lambda x,y : round(random.uniform(x, y),2)
-    return randomFloat(start, end)
-
-# string aleatoire
-def getRandomString(val,form=""):
-    strings = convertTo(val, str)
-    return random.choice(strings)
-
-def getRandomBoolean(val,form=""):
-    strings = convertTo(val, str, 2)
-    return random.choice(strings)
-
-def date(d):
-    day, month, year = d.split("/")
-    sdate = datetime.date(int(year),int(month),int(day))
+# Fonctions pour la conversion des types
+def date(year):
+    y=year.split("/")
+    sdate = datetime.date(int(y[2]),int(y[1]),int(y[0]))
     # generer les timestamps
     return time.mktime(sdate.timetuple())
+def getRandomPhone(val,form=""):
+    ph_no = []
+    # the first number should be in the range of 6 to 7
+    ph_no.append("+212")
+    ph_no.append(random.randint(6, 7))
+    # the for loop is used to append the other 9 numbers.
+    # the other 9 numbers can be in the range of 0 to 9.
+    for i in range(1,9):
+        ph_no.append(random.randint(0, 9))
 
-# retourner une date aleatoire
-def getRandomDate(val,form=""):
-    start , end = convertTo(val, date, 2)
-    randomDate =random.randint(start, end)
-    return datetime.datetime.fromtimestamp(randomDate).strftime(form)
+    return ''.join(str(e) for e in ph_no)
 
-# timestamp aleatoire
-def getTimestamp(val,form=""):
-    start, end = convertTo(val, date, 2)
-    randomDate = random.randint(int(start), int(end))
-    return datetime.datetime.fromtimestamp(randomDate).strftime(form)
+
+# retourner une liste du type souhaite
+def typeapproved(inData, dtype):
+    i = 0
+    y = []
+    for x in inData.split("-"):
+        if re.search(DICTIONNAIRE[dtype], x):
+            y.append(x)
+        else:
+            y=print("valeur",i+1,"est incorrecte veuillez saisir un",dtype)
+        i = i+1
+    return y
 
 currentId = 0
-
-if 'id' in data[sectionName[0]]:
+sectionName=getsection()
+if 'autoicrement' in data[sectionName[0]]:
     try:
-        currentId = data[sectionName[0]]['id'].split(',')[2]
+        currentId = data[sectionName[0]]['autoicrement'].split(',')[2]
         currentId = int(currentId) - 1
     except:
-        sys.exit('id structure is wrong')
+        sys.exit('autoicrement structure is wrong')
 
 def getCurrentId(inData,form=""):
     global currentId
     currentId += 1
     return currentId
 
+
+# obtenir un entier aleatoire
+def getRandomInt(intSet, form=""):
+    try:
+        i=typeapproved(intSet,"int")
+        start=i[0]
+        end=i[1]
+        return random.randint(int(start), int(end))
+    except:
+        sys.exit("erreur int")
+
+# obtenir un double aleatoire
+def getRandomFloat(intSet, form=""):
+    try:
+        i = typeapproved(intSet, "float")
+        start = i[0]
+        end = i[1]
+        randomDouble = lambda x, y: random.uniform(x, y)
+        return randomDouble(float(start), float(end))
+    except:
+        sys.exit("erreur float")
+
+# string aleatoire
+def getRandomString(intSet, form=""):
+    try:
+        strings = typeapproved(intSet, "str")
+        return random.choice(strings)
+    except:
+        sys.exit("erreur str")
+
+# retourner une date aleatoire entre 2 annees (ex: entre 2002 et 2021)
+def getRandomDate(dateTime, form=""):
+    try:
+        i = typeapproved(dateTime, "datetime")
+        start = i[0]
+        end = i[1]  # date c'est une fonction
+        randomDate = random.randint(int(date(start)), int(date(end)))
+        return datetime.datetime.fromtimestamp(randomDate).strftime(form)
+    except:
+        sys.exit("erreur date")
+
+def getTimestamp(Time, form=""):
+    try:
+        i = typeapproved(Time, "timestamp")
+        start,end = i[0],i[1]
+        randomDate = random.randint(int(date(start)), int(date(end)))  # date c'est une fonction
+        return datetime.datetime.fromtimestamp(randomDate).strftime(form)
+    except:
+        sys.exit("erreur getTimestamp")
+
+def getRandomBoolean(val,form=""):
+    try:
+        i = typeapproved(val, "bool")
+        return random.choice(i)
+    except:
+        sys.exit("erreur boolean")
+
 # les types possibles
-dataTypes = {'int': getRandomInt,
-             'string': getRandomString,
-             'float': getRandomFloat,
-             'timestamp': getTimestamp,
-             "datetime": getRandomDate,
-             'boolean': getRandomBoolean, # Vu que ca contient yes/no
-             'id':getCurrentId,
-             }
+dataTypes = {
+    'int': getRandomInt,
+    'str': getRandomString,
+    'timestamp': getTimestamp,
+    'float': getRandomFloat,
+    "datetime": getRandomDate,
+    "bool":getRandomBoolean,
+    "mdn":getRandomPhone,
+    "autoicrement":getCurrentId
+}
+
+
 
 # fonction pour obtenir/generer les ranges
 def getData(fieldname):
-    field = data[sectionName[0]][fieldname].split(',')
-    if len(field) == 3:
-        dtype = field[0]
-        if dtype in dataTypes:
-            regex_checker(field[2], dtype)
-            return dataTypes[dtype](field[2],form=field[1])
-        else:
-            raise TypeError(f'{dtype} is not supported')
-    else:
-        raise IndexError(f'{fieldname} list index out of range')
+    section=getsection()
+    field = getvalues(section[0], fieldname)
+    dtype = field[0]
+    if dtype in dataTypes:
+        return dataTypes[dtype](field[2], form=field[1])
+    return field[2]
