@@ -17,24 +17,16 @@ maxRecords = data["fileInfos"]["maxRecords"]
 
 # fonction pour obtenir les cles
 def getkeys(section):
-    vals = []
-    for key in dict(data.items(section)):
-        vals.append(key)
-    return vals
+    return [key for key in data[section]]
 # fonction pour obtenir les vals des cles
 def getvalues(section, key):
-    nom = data[section][key].split(",")
-    return nom
+    return data[section][key].split(",")
 # fonction pour obtenir les sections
 def getsection():
-    vals = []
-    for section in data.sections():
-            vals.append(section)
-    return vals
+    return [section for section in data.sections()]
 # fonction pour obtenir les infos sur le fichier
 def getFileInfo(undersection):
-    field = data['fileInfos'][undersection]
-    return field
+    return data['fileInfos'][undersection]
 
 
 # Fonctions pour la conversion des types
@@ -43,30 +35,26 @@ def date(year):
     sdate = datetime.date(int(y[2]),int(y[1]),int(y[0]))
     # generer les timestamps
     return time.mktime(sdate.timetuple())
-def getRandomPhone(val,form=""):
-    ph_no = []
+def getRandomPhone(val, form=""):
     # the first number should be in the range of 6 to 7
-    ph_no.append("+212")
-    ph_no.append(random.randint(6, 7))
+    ph_no = "+212" + str(random.randint(6, 7))
     # the for loop is used to append the other 9 numbers.
     # the other 9 numbers can be in the range of 0 to 9.
-    for i in range(1,9):
-        ph_no.append(random.randint(0, 9))
+    for i in range(1, 9):
+        ph_no += str(random.randint(0, 9))
+    return ph_no
 
-    return ''.join(str(e) for e in ph_no)
 
 
 # retourner une liste du type souhaite
 def typeapproved(inData, dtype):
-    i = 0
-    y = []
-    for x in inData.split("-"):
-        if re.search(DICTIONNAIRE[dtype], x):
-            y.append(x)
-        else:
-            y=print("valeur",i+1,"est incorrecte veuillez saisir un",dtype)
-        i = i+1
-    return y
+    try:
+        y = [x for x in inData.split("-") if re.search(DICTIONNAIRE[dtype], x)]
+        if len(y) != len(inData.split("-")):
+            raise ValueError("Une ou plusieurs valeurs sont incorrectes, veuillez saisir des " + dtype + " valides.")
+        return y
+    except KeyError:
+        raise ValueError("Le type " + dtype + " n'est pas pris en charge.")
 
 currentId = 0
 sectionName=getsection()
