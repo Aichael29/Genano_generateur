@@ -45,17 +45,19 @@ wb.save(filename)"""
 # ouvrir le fichier csv en mode écriture
 with open(filename, 'w', newline='') as csvfile:
     # créer un écrivain csv
-    writer = csv.writer(csvfile)
-
+    writer = csv.writer(csvfile, delimiter=";")
+    #writer = csv.writer(csvfile)
     # écrire les en-têtes de colonne
     writer.writerow(fieldnames)
+    for j in range(1, maxRecords + 1):
+        writer.writerow(getData(fieldname) for fieldname in fieldnames)
 
-    # écrire les données
+"""  # écrire les données
     for j in range(1, maxRecords+1):
         row = []
         for fieldname in fieldnames:
             row.append(getData(fieldname))
-        writer.writerow(row)
+        writer.writerow(row)"""
 
 
 end = time.time()
