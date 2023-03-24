@@ -6,7 +6,7 @@ import configparser
 from dict import DICTIONNAIRE
 import re
 import sys
-
+import numpy as np
 # le chemin absolu du fichier
 absPath = os.path.dirname(os.path.realpath(__file__))
 configFile = os.path.join(absPath, 'config.conf')
@@ -17,15 +17,11 @@ maxRecords = data["fileInfos"]["maxRecords"]
 
 # fonction pour obtenir les cles
 def getkeys(section):
-    return list(data[section].keys())
-
+    return data[section].keys()
 # fonction pour obtenir les vals des cles
 def getvalues(section, key):
     return data[section][key].split(",")
 
-# fonction pour obtenir les sections
-def getsection():
-    return [section for section in data.sections()]
 
 # fonction pour obtenir les infos sur le fichier
 def getFileInfo(undersection):
@@ -41,17 +37,9 @@ def date(year):
     timestamp = time.mktime(date_obj.timetuple())
     return timestamp
 
-def getRandomPhone(val,form=""):
-    ph_no = []
-    # the first number should be in the range of 6 to 7
-    ph_no.append("+212")
-    ph_no.append(random.randint(6, 7))
-    # the for loop is used to append the other 9 numbers.
-    # the other 9 numbers can be in the range of 0 to 9.
-    for i in range(1,9):
-        ph_no.append(random.randint(0, 9))
 
-    return ''.join(str(e) for e in ph_no)
+def getRandomPhone(val, form=""):
+   return "+212{}{}".format(random.randint(6, 7), random.randint(10000000, 99999999))
 
 
 # retourner une liste du type souhaite
@@ -63,9 +51,8 @@ def typeapproved(inData, dtype):
         print("Au moins une valeur est incorrecte. Veuillez saisir des valeurs conformes au type", dtype)
     return valid_values
 
-
 currentId = 0
-sectionName=getsection()
+sectionName=[section for section in data.sections()]
 if 'autoicrement' in data[sectionName[0]]:
     try:
         currentId = data[sectionName[0]]['autoicrement'].split(',')[2]
@@ -79,14 +66,13 @@ def getCurrentId(inData,form=""):
     return currentId
 
 # obtenir un entier aleatoire
-def getRandomInt(intSet, form=""):
+def getRandomInt(intSet , form=""):
     try:
-        i=typeapproved(intSet,"int")
-        start=i[0]
-        end=i[1]
-        return random.randint(int(start), int(end))
-    except:
-        sys.exit("erreur int")
+        i = typeapproved(intSet, "int")
+        return np.random.randint(i[0], i[1])
+    except ValueError:
+        raise ValueError("Valeurs invalides pour les bornes de l'intervalle")
+
 
 # obtenir un double aleatoire
 def getRandomFloat(intSet, form=""):
@@ -102,8 +88,8 @@ def getRandomFloat(intSet, form=""):
 # string aleatoire
 def getRandomString(intSet, form=""):
     try:
-        strings = typeapproved(intSet, "str")
-        return random.choice(strings)
+       # strings = typeapproved(intSet, "str")
+        return random.choice(typeapproved(intSet, "str"))
     except:
         sys.exit("erreur str")
 
@@ -147,7 +133,7 @@ dataTypes = {
 
 # fonction pour obtenir/generer les ranges
 def getData(fieldname):
-    section=getsection()
+    section=sectionName
     field = getvalues(section[0], fieldname)
     dtype = field[0]
     if dtype in dataTypes:
