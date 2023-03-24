@@ -22,8 +22,10 @@ def getkeys(section):
 def getvalues(section, key):
     return data[section][key].split(",")
 # fonction pour obtenir les sections
-def getsection():
-    return [section for section in data.sections()]
+"""def getsection():
+    return [section for section in data.sections()]"""
+
+
 # fonction pour obtenir les infos sur le fichier
 def getFileInfo(undersection):
     return data['fileInfos'][undersection]
@@ -36,15 +38,17 @@ def date(year):
     # generer les timestamps
     return time.mktime(sdate.timetuple())
 
-def getRandomPhone(val, form=""):
-    # the first number should be in the range of 6 to 7
+"""def getRandomPhone(val, form=""):
+   # the first number should be in the range of 6 to 7
     ph_no = "+212" + str(random.randint(6, 7))
     # the for loop is used to append the other 9 numbers.
     # the other 9 numbers can be in the range of 0 to 9.
     for i in range(1, 9):
         ph_no += str(random.randint(0, 9))
-    return ph_no
+    return ph_no"""
 
+def getRandomPhone(val, form=""):
+   return "+212{}{}".format(random.randint(6, 7), random.randint(10000000, 99999999))
 
 
 # retourner une liste du type souhaite
@@ -58,7 +62,7 @@ def typeapproved(inData, dtype):
         raise ValueError("Le type " + dtype + " n'est pas pris en charge.")
 
 currentId = 0
-sectionName=getsection()
+sectionName=[section for section in data.sections()]
 if 'autoicrement' in data[sectionName[0]]:
     try:
         currentId = data[sectionName[0]]['autoicrement'].split(',')[2]
@@ -95,8 +99,8 @@ def getRandomFloat(intSet, form=""):
 # string aleatoire
 def getRandomString(intSet, form=""):
     try:
-        strings = typeapproved(intSet, "str")
-        return random.choice(strings)
+       # strings = typeapproved(intSet, "str")
+        return random.choice(typeapproved(intSet, "str"))
     except:
         sys.exit("erreur str")
 
@@ -143,7 +147,7 @@ dataTypes = {
 
 # fonction pour obtenir/generer les ranges
 def getData(fieldname):
-    section=getsection()
+    section=sectionName
     field = getvalues(section[0], fieldname)
     dtype = field[0]
     if dtype in dataTypes:

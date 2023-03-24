@@ -11,7 +11,7 @@ path = getFileInfo("path")
 filename = "%s\%s_%s.csv" % (path, getFileInfo("genre"), time.strftime(getFileInfo("dateFormat")))
 
 # les colonnes
-section = getsection()
+section = sectionName
 fieldnames = getkeys(section[0])
 
 maxRecords = int(getFileInfo("maxRecords"))
@@ -28,6 +28,7 @@ with open(filename, 'w', newline='') as csvfile:
 
 
 end = time.time()
+print("la section est "+str( sectionName ))
 print("le nbr de ligne est "+ str(maxRecords)+" lignes")
 print("csv généré en " + str(end - start) + " secondes")
 print("csv généré en " + str((end - start)/60) + "minutes")
