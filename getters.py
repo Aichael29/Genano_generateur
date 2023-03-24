@@ -6,7 +6,7 @@ import configparser
 from dict import DICTIONNAIRE
 import re
 import sys
-
+import numpy as np
 # le chemin absolu du fichier
 absPath = os.path.dirname(os.path.realpath(__file__))
 configFile = os.path.join(absPath, 'config.conf')
@@ -17,7 +17,7 @@ maxRecords = data["fileInfos"]["maxRecords"]
 
 # fonction pour obtenir les cles
 def getkeys(section):
-    return [key for key in data[section]]
+    return data[section].keys()
 # fonction pour obtenir les vals des cles
 def getvalues(section, key):
     return data[section][key].split(",")
@@ -35,6 +35,7 @@ def date(year):
     sdate = datetime.date(int(y[2]),int(y[1]),int(y[0]))
     # generer les timestamps
     return time.mktime(sdate.timetuple())
+
 def getRandomPhone(val, form=""):
     # the first number should be in the range of 6 to 7
     ph_no = "+212" + str(random.randint(6, 7))
@@ -72,14 +73,13 @@ def getCurrentId(inData,form=""):
 
 
 # obtenir un entier aleatoire
-def getRandomInt(intSet, form=""):
+def getRandomInt(intSet , form=""):
     try:
-        i=typeapproved(intSet,"int")
-        start=i[0]
-        end=i[1]
-        return random.randint(int(start), int(end))
-    except:
-        sys.exit("erreur int")
+        i = typeapproved(intSet, "int")
+        return np.random.randint(i[0], i[1])
+    except ValueError:
+        raise ValueError("Valeurs invalides pour les bornes de l'intervalle")
+
 
 # obtenir un double aleatoire
 def getRandomFloat(intSet, form=""):

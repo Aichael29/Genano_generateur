@@ -1,8 +1,3 @@
-"""import time
-import os
-import traceback
-import openpyxl
-from openpyxl.utils import get_column_letter"""
 from getters import *
 import csv
 
@@ -20,11 +15,10 @@ section = getsection()
 fieldnames = getkeys(section[0])
 
 maxRecords = int(getFileInfo("maxRecords"))
-
 # ouvrir le fichier csv en mode écriture
 with open(filename, 'w', newline='') as csvfile:
     # créer un écrivain csv
-    writer = csv.writer(csvfile, delimiter=";")
+    writer = csv.writer(csvfile, delimiter= getFileInfo("delimiteur"))
     #writer = csv.writer(csvfile)
     # écrire les en-têtes de colonne
     writer.writerow(fieldnames)
@@ -34,5 +28,6 @@ with open(filename, 'w', newline='') as csvfile:
 
 
 end = time.time()
+print("le nbr de ligne est "+ str(maxRecords)+" lignes")
 print("csv généré en " + str(end - start) + " secondes")
 print("csv généré en " + str((end - start)/60) + "minutes")
