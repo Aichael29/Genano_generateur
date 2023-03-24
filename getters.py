@@ -17,32 +17,30 @@ maxRecords = data["fileInfos"]["maxRecords"]
 
 # fonction pour obtenir les cles
 def getkeys(section):
-    vals = []
-    for key in dict(data.items(section)):
-        vals.append(key)
-    return vals
+    return list(data[section].keys())
+
 # fonction pour obtenir les vals des cles
 def getvalues(section, key):
-    nom = data[section][key].split(",")
-    return nom
+    return data[section][key].split(",")
+
 # fonction pour obtenir les sections
 def getsection():
-    vals = []
-    for section in data.sections():
-            vals.append(section)
-    return vals
+    return [section for section in data.sections()]
+
 # fonction pour obtenir les infos sur le fichier
 def getFileInfo(undersection):
-    field = data['fileInfos'][undersection]
-    return field
-
+    return data['fileInfos'][undersection]
 
 # Fonctions pour la conversion des types
 def date(year):
-    y=year.split("/")
-    sdate = datetime.date(int(y[2]),int(y[1]),int(y[0]))
-    # generer les timestamps
-    return time.mktime(sdate.timetuple())
+    day, month, year_str = year.split("/")
+    year_int = int(year_str)
+    month_int = int(month)
+    day_int = int(day)
+    date_obj = datetime.date(year_int, month_int, day_int)
+    timestamp = time.mktime(date_obj.timetuple())
+    return timestamp
+
 def getRandomPhone(val,form=""):
     ph_no = []
     # the first number should be in the range of 6 to 7
@@ -58,15 +56,13 @@ def getRandomPhone(val,form=""):
 
 # retourner une liste du type souhaite
 def typeapproved(inData, dtype):
-    i = 0
-    y = []
-    for x in inData.split("-"):
-        if re.search(DICTIONNAIRE[dtype], x):
-            y.append(x)
-        else:
-            y=print("valeur",i+1,"est incorrecte veuillez saisir un",dtype)
-        i = i+1
-    return y
+    regex = DICTIONNAIRE[dtype]
+    values = inData.split("-")
+    valid_values = [value for value in values if re.search(regex, value)]
+    if len(valid_values) < len(values):
+        print("Au moins une valeur est incorrecte. Veuillez saisir des valeurs conformes au type", dtype)
+    return valid_values
+
 
 currentId = 0
 sectionName=getsection()
@@ -81,7 +77,6 @@ def getCurrentId(inData,form=""):
     global currentId
     currentId += 1
     return currentId
-
 
 # obtenir un entier aleatoire
 def getRandomInt(intSet, form=""):
@@ -134,8 +129,7 @@ def getTimestamp(Time, form=""):
 
 def getRandomBoolean(val,form=""):
     try:
-        i = typeapproved(val, "bool")
-        return random.choice(i)
+        return random.choice(typeapproved(val, "bool"))
     except:
         sys.exit("erreur boolean")
 
@@ -150,8 +144,6 @@ dataTypes = {
     "mdn":getRandomPhone,
     "autoicrement":getCurrentId
 }
-
-
 
 # fonction pour obtenir/generer les ranges
 def getData(fieldname):
