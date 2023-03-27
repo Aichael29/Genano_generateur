@@ -51,18 +51,17 @@ def typeapproved(inData, dtype):
     return valid_values
 
 
+values = [str(i) for i in getvalues(sectionName[0], 'id')]
 currentId = 0
 sectionName=[section for section in data.sections()]
-if 'autoicrement' in data[sectionName[0]]:
-    try:
-        currentId = data[sectionName[0]]['autoicrement'].split(',')[2]
-        currentId = int(currentId) - 1
-    except:
-        sys.exit('autoicrement structure is wrong')
 
 def getCurrentId(inData,form=""):
     global currentId
-    currentId += 1
+    currentId=int(currentId)
+    if currentId == 0:
+        currentId = values[2]
+    else:
+        currentId = currentId + 1
     return currentId
 
 
