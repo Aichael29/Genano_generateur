@@ -1,35 +1,25 @@
-import time
-import os
-import traceback
-from openpyxl import Workbook
-from getters import * # Importing all of functions from our library getters.py
+from getters import *
+import csv
 
 start = time.time()
 
 # Nom du fichier horodaté
-dateFile = time.strftime(getFileInfo("dateFormat"))
-fileType = getFileInfo("fileType")
-filename = "%s_%s.%s" % (getFileInfo("genre"), dateFile, fileType)
+path = getFileInfo("path")
+filename = "%s\%s_%s.csv" % (path, getFileInfo("genre"), time.strftime(getFileInfo("dateFormat")))
 
-# le nombre d'enregistrement à partir de la section FileInfo
+# les colonnes
+fieldnames = getkeys(sectionName[0])
 maxRecords = int(getFileInfo("maxRecords"))
 
-wb = Workbook()
-ws = wb.active
-
-try:
-    ws.append(fieldnames)
-    for i in range(0, maxRecords):
-        row = []
-        for field in fieldnames:
-            row.append(getData(field))
-        ws.append(row)
-
-    wb.save(filename)
-
-except:
-    os.remove(filename) # Remove file if any error occurs
-    traceback.print_exc()
+# ouvrir le fichier csv en mode écriture
+with open(filename, 'w', newline='') as csvfile:
+    # créer un écrivain csv
+    writer = csv.writer(csvfile,delimiter=getFileInfo("delimiter"))
+    # écrire les en-têtes de colonne
+    writer.writerow(fieldnames)
+    for j in range(1, maxRecords + 1):
+        writer.writerow(getData(fieldname) for fieldname in fieldnames)
 
 end = time.time()
-print("XLSX généré en "+ str(end - start) +" secondes")
+print("le nbr de ligne est "+ str(maxRecords)+" lignes")
+print("csv généré en " + str(end - start) + " secondes")
