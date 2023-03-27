@@ -15,6 +15,7 @@ data = configparser.ConfigParser()
 data.read(configFile)
 maxRecords = data["fileInfos"]["maxRecords"]
 
+sectionName=[section for section in data.sections()]
 # fonction pour obtenir les cles
 def getkeys(section):
     return data[section].keys()
@@ -39,17 +40,16 @@ def date(year):
 
 
 def getRandomPhone(val, form=""):
-   return "+212{}{}".format(random.randint(6, 7), random.randint(10000000, 99999999))
+   return "".join(["+212", str(random.randint(6, 7)), str(random.randint(10000000, 99999999))])
 
 
 # retourner une liste du type souhaite
 def typeapproved(inData, dtype):
-    regex = DICTIONNAIRE[dtype]
-    values = inData.split("-")
-    valid_values = [value for value in values if re.search(regex, value)]
-    if len(valid_values) < len(values):
+    valid_values = [value for value in inData.split("-") if re.search(DICTIONNAIRE[dtype], value)]
+    if len(valid_values) < len(inData.split("-")):
         print("Au moins une valeur est incorrecte. Veuillez saisir des valeurs conformes au type", dtype)
     return valid_values
+
 
 currentId = 0
 sectionName=[section for section in data.sections()]
@@ -64,6 +64,9 @@ def getCurrentId(inData,form=""):
     global currentId
     currentId += 1
     return currentId
+
+
+
 
 # obtenir un entier aleatoire
 def getRandomInt(intSet , form=""):
