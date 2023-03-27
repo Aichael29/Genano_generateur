@@ -50,6 +50,7 @@ def typeapproved(inData, dtype):
         print("Au moins une valeur est incorrecte. Veuillez saisir des valeurs conformes au type", dtype)
     return valid_values
 
+
 values = [str(i) for i in getvalues(sectionName[0], 'id')]
 currentId = 0
 sectionName=[section for section in data.sections()]
