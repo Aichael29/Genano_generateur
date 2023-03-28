@@ -21,7 +21,13 @@ Après l'application des méthodes d'optimisation de code, nous avons mesuré le
 •	Pour 1 000 000 lignes, le temps d'exécution initial était de 8 minutes. Après l'optimisation, le temps d'exécution est passé à 4,7 minutes, ce qui représente une réduction de 41%.
 Et après l'application des techniques multiprocessing et multithreading, nous avons mesuré le temps d'exécution du script pour différentes tailles d'entrée. Les résultats sont les suivants :
 
-![Capture.PNG](..%2F..%2FPictures%2FCamera%20Roll%2FCapture.PNG)
+
+
+	          Multithreading	Multiprocessing(avec problème de ID) Concurrent.Futures	Code optimisé
+1 000	      0,3 s	            1,1 s	                             1 s	            0, 3 s
+10 000	      4,08 s	        2,8 s	                             8 s	            3 s
+100 000	      27,8 s	        16,9 s	                             87,14 s	        28 s
+1 000 000     5 min	            2,2 min 	                         15,06 min	        5 min
 
 Conclusion :
 En conclusion, ce projet a réussi à optimiser le temps d'exécution du script Python en utilisant des méthodes d'optimisation de code. Les résultats ont montré une réduction significative du temps d'exécution pour différents nombres de lignes.
