@@ -23,7 +23,7 @@ Et après l'application des techniques multiprocessing et multithreading, nous a
 
 
 
-	          Multithreading	Multiprocessing(avec problème de ID) Concurrent.Futures	Code optimisé
+lignes	          Multithreading	Multiprocessing(avec problème de ID) Concurrent.Futures	Code optimisé
 1 000	      0,3 s	            1,1 s	                             1 s	            0, 3 s
 10 000	      4,08 s	        2,8 s	                             8 s	            3 s
 100 000	      27,8 s	        16,9 s	                             87,14 s	        28 s
