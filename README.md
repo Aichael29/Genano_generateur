@@ -23,6 +23,5 @@ Et après l'application des techniques multiprocessing et multithreading, nous a
 
 ![Capture.PNG](..%2F..%2FPictures%2FCamera%20Roll%2FCapture.PNG)
 
-
 Conclusion :
 En conclusion, ce projet a réussi à optimiser le temps d'exécution du script Python en utilisant des méthodes d'optimisation de code. Les résultats ont montré une réduction significative du temps d'exécution pour différents nombres de lignes.
