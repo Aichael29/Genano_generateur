@@ -1,10 +1,8 @@
 import csv
 import random
 from datetime import datetime, timedelta
+
 operator = random.choice(["INWI", "IAM", "ORANGE", "International"])
-
-
-
 def generate_csv_file(num_rows):
     columns = [
         "id_date", "dn", "date_debut", "type_even", "nombre_even", "even_minutes", "direction_appel",
@@ -90,20 +88,16 @@ def generate_csv_file(num_rows):
 
         rows.append(row)
 
-    with open("f.csv", "w", newline="") as csvfile:
+    with open("Traffic.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(columns)
         writer.writerows(rows)
 
-    print(f"CSV file with {num_rows} rows generated successfully!")
 
-"""def random_date(start_date, end_date):
-    return start_date + timedelta(seconds=random.randint(0, int((end_date - start_date).total_seconds())))
-"""
 def generate_dn():
     prefix = "2125" if random.random() < 0.5 else "2126"
     suffix = str(random.randint(10000000, 99999999))
     return prefix + suffix
 
 # Exemple d'utilisation
-generate_csv_file(50)  # Génère un fichier CSV avec 10 lignes
+generate_csv_file(10000)  # Génère un fichier CSV avec 10000 lignes
