@@ -1,0 +1,11 @@
+id_date,dn,date_debut,type_even,nombre_even,even_minutes,direction_appel,termination_type,type_reseau,type_destination,operator,country,profile_id,city,gamme,marche,segment,billing_type,contract_id,date_fin
+20220420,212545684761,2022-04-20 11:59:41,sms,10,,IN,off-net,fix,international,International,France,9758,Tangier,Fibre optique,Home,B2C,Prepaid,ABC950528,2022-04-20 12:12:41
+20230325,212646415804,2023-03-25 09:32:57,voice,9,53,OUT,on-net,fix,international,International,USA,9269,Tangier,Fibre optique,Home,B2C,Prepaid,ABC597666,2023-03-25 10:25:57
+20230228,212589702786,2023-02-28 01:59:00,voice,4,53,IN,off-net,mobile,international,International,USA,4819,Tangier,Fibre optique,Home,B2C,Prepaid,ABC128923,2023-02-28 02:52:00
+20220427,212669706433,2022-04-27 12:15:26,voice,5,2,OUT,off-net,mobile,national,ORANGE,Morocco,9274,Tangier,Fibre optique,Home,B2C,Prepaid,ABC907698,2022-04-27 12:17:26
+20220502,212615156889,2022-05-02 18:04:54,voice,7,12,OUT,on-net,mobile,international,International,USA,6921,Tangier,Fibre optique,Home,B2C,Prepaid,ABC582939,2022-05-02 18:16:54
+20221018,212544127548,2022-10-18 17:56:08,sms,8,,IN,on-net,mobile,national,ORANGE,Morocco,2784,Tangier,Fibre optique,Home,B2C,Prepaid,ABC165507,2022-10-18 18:34:08
+20221001,212592962932,2022-10-01 11:56:44,voice,7,47,OUT,off-net,mobile,international,International,USA,2148,Tangier,Fibre optique,Home,B2C,Prepaid,ABC467829,2022-10-01 12:43:44
+20220831,212550252560,2022-08-31 02:37:13,sms,5,,OUT,off-net,mobile,international,International,Spain,2498,Tangier,Fibre optique,Home,B2C,Prepaid,ABC959660,2022-08-31 03:03:13
+20220617,212637956639,2022-06-17 08:33:01,voice,10,21,OUT,on-net,mobile,national,ORANGE,Morocco,5557,Tangier,Fibre optique,Home,B2C,Prepaid,ABC242237,2022-06-17 08:54:01
+20220422,212658088677,2022-04-22 10:04:16,sms,3,,IN,off-net,fix,national,ORANGE,Morocco,3832,Tangier,Fibre optique,Home,B2C,Prepaid,ABC842725,2022-04-22 10:12:16

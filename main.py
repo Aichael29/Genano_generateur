@@ -1,19 +1,24 @@
 import csv
 import random
 from datetime import datetime, timedelta
+operator = random.choice(["INWI", "IAM", "ORANGE", "International"])
+
+
 
 def generate_csv_file(num_rows):
     columns = [
         "id_date", "dn", "date_debut", "type_even", "nombre_even", "even_minutes", "direction_appel",
-        "termination_type", "type_reseau", "type_destination", "operator", "zone", "country",
-        "profile_id", "city", "region", "gamme", "marche", "segment", "billing_type", "contract_id", "date_fin"
+        "termination_type", "type_reseau", "type_destination", "operator","country",
+        "profile_id", "city", "gamme", "marche", "segment", "billing_type", "contract_id", "date_fin"
     ]
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2023, 3, 1)
 
     rows = []
     for _ in range(num_rows):
         row = []
         # id_date
-        id_date = random_date(datetime(2022, 1, 1), datetime(2023, 3, 31))
+        id_date = start_date + timedelta(seconds=random.randint(0, int((end_date - start_date).total_seconds())))
         row.append(id_date.strftime("%Y%m%d"))
         # dn
         dn = generate_dn()
@@ -46,38 +51,38 @@ def generate_csv_file(num_rows):
         if type_destination == "international":
             row.append("International")
         else:
-            row.append(random.choice(["INWI", "IAM", "ORANGE"]))
-        # zone
-        if row[-1] == "International":
-            row.append(random.choice(["zone1", "zone2", "zone3", "zone4"]))
-        else:
-            row.append(random.choice(["Zone1", "Zone2", "Zone3", "Zone4", "Nationale Zone"]))
+            row.append(random.choice(["INWI", "IAM", "ORANGE"])
+)
         # country
-        if random.random() < 0.2:  # 20% chance of non-Maroc country
-            row.append(random.choice(["Morocco", "France", "Spain", "USA"]))
-        else:
+        if type_destination == "national" : # 20% chance of non-Maroc country
             row.append("Morocco")
+        else:
+            row.append(random.choice(["France", "Spain", "USA"]))
         # profile_id
         row.append(str(random.randint(1000, 9999)))
         # city
-        row.append(random.choice(["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier"]))
-        # region
-        row.append(random.choice(["Grand Casablanca", "Rabat-Sale-Kenitra", "Marrakech-Safi", "Fes-Meknes", "Tanger-Tetouan-Al Hoceima"]))
+        if type_destination == "national" and operator in ["INWI", "IAM", "ORANGE"]:  # 20% chance of non-Maroc cities
+            row.append(random.choice(["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier"]))
+        else:
+            row.append("international city")
         # gamme
         row.append(random.choice(["Fibre optique", "ADSL", "MRE", "Data Prepaid", "Data Postpaid", "Forfaits 99 dhs",
-                                  "Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"]))
-        # marche
-        if row[-2] == "B2B":
-            row.append("mobile postpaid home")
-        else:
-            row.append(random.choice(["Mobile Prepaid", "Mobile Postpaid", "Home"]))
+                       "Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"]))
         # segment
-        row.append(random.choice(["B2B", "B2C", "Autres"]))
-        # billing_type
-        if row[-1] == "B2B":
-            row.append("Prepaid")
+        segment = random.choice(["B2B", "B2C", "Autres"])
+        row.append(segment)
+        # marche
+        if segment == "B2B":
+            row.append("Mobile Postpaid")
         else:
-            row.append(random.choice(["Prepaid", "Postpaid", "Autres"]))
+            row.append(random.choice(["Mobile Prepaid", "Mobile Postpaid", "Home"])
+)
+        # billing_type
+        if segment == "B2B":
+            row.append("Postpaid")
+        else:
+            row.append(random.choice(["Prepaid", "Postpaid", "Autres"])
+)
         # contract_id
         row.append("ABC" + str(random.randint(100000, 999999)))
         # date_fin
@@ -85,20 +90,20 @@ def generate_csv_file(num_rows):
 
         rows.append(row)
 
-    with open("data.csv", "w", newline="") as csvfile:
+    with open("f.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(columns)
         writer.writerows(rows)
 
     print(f"CSV file with {num_rows} rows generated successfully!")
 
-def random_date(start_date, end_date):
+"""def random_date(start_date, end_date):
     return start_date + timedelta(seconds=random.randint(0, int((end_date - start_date).total_seconds())))
-
+"""
 def generate_dn():
     prefix = "2125" if random.random() < 0.5 else "2126"
     suffix = str(random.randint(10000000, 99999999))
     return prefix + suffix
 
 # Exemple d'utilisation
-generate_csv_file(10)  # Génère un fichier CSV avec 10 lignes
+generate_csv_file(50)  # Génère un fichier CSV avec 10 lignes

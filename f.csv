@@ -1,0 +1,51 @@
+id_date,dn,date_debut,type_even,nombre_even,even_minutes,direction_appel,termination_type,type_reseau,type_destination,operator,country,profile_id,city,gamme,marche,segment,billing_type,contract_id,date_fin
+20220516,212647339663,2022-05-16 09:59:40,sms,1,,IN,off-net,fix,international,International,USA,8981,international city,MRE,Autres,Mobile Prepaid,Prepaid,ABC236179,2022-05-16 10:21:40
+20220513,212576852330,2022-05-13 01:36:36,sms,2,,OUT,off-net,fix,national,INWI,Morocco,4248,Tangier,Forfaits 199 dhs,Autres,Home,Autres,ABC507892,2022-05-13 01:50:36
+20220926,212684962077,2022-09-26 12:19:32,sms,3,,OUT,on-net,mobile,international,International,Spain,9997,international city,Forfaits 199 dhs,B2B,Mobile Postpaid,Postpaid,ABC614029,2022-09-26 13:10:32
+20220913,212666035392,2022-09-13 19:29:19,sms,5,,IN,on-net,mobile,national,INWI,Morocco,7008,Tangier,Forfaits 99 dhs,B2B,Mobile Postpaid,Postpaid,ABC794915,2022-09-13 19:37:19
+20220911,212524222941,2022-09-11 04:55:58,voice,4,57,OUT,off-net,mobile,international,International,USA,7956,international city,Forfaits 149 dhs,B2B,Mobile Postpaid,Postpaid,ABC564575,2022-09-11 05:52:58
+20220107,212514254551,2022-01-07 13:14:33,voice,7,46,IN,on-net,fix,national,ORANGE,Morocco,6127,Rabat,Forfaits 249 dhs,B2B,Mobile Postpaid,Postpaid,ABC873189,2022-01-07 14:00:33
+20220602,212617051122,2022-06-02 11:33:08,voice,6,25,IN,off-net,fix,international,International,France,5562,international city,Forfaits 249 dhs,B2C,Home,Postpaid,ABC885613,2022-06-02 11:58:08
+20220425,212597673375,2022-04-25 02:03:42,voice,9,25,IN,off-net,fix,national,IAM,Morocco,4902,Casablanca,MRE,B2C,Home,Autres,ABC409870,2022-04-25 02:28:42
+20220620,212624606959,2022-06-20 10:01:18,sms,8,,OUT,off-net,fix,national,ORANGE,Morocco,2668,Casablanca,Forfaits 99 dhs,B2B,Mobile Postpaid,Postpaid,ABC946911,2022-06-20 10:30:18
+20221027,212559279683,2022-10-27 07:51:39,voice,3,41,OUT,on-net,mobile,national,IAM,Morocco,6011,Tangier,Forfaits 249 dhs,B2B,Mobile Postpaid,Postpaid,ABC187761,2022-10-27 08:32:39
+20220408,212634350737,2022-04-08 01:01:11,voice,8,21,OUT,off-net,fix,international,International,Spain,1668,international city,Data Postpaid,B2B,Mobile Postpaid,Postpaid,ABC349435,2022-04-08 01:22:11
+20220802,212570329481,2022-08-02 18:21:42,sms,2,,OUT,off-net,mobile,national,IAM,Morocco,2812,Tangier,Data Postpaid,B2B,Mobile Postpaid,Postpaid,ABC582455,2022-08-02 18:45:42
+20220918,212573421779,2022-09-18 07:39:47,voice,6,38,IN,on-net,mobile,national,INWI,Morocco,4992,Tangier,Forfaits 249 dhs,B2C,Mobile Prepaid,Postpaid,ABC637646,2022-09-18 08:17:47
+20221001,212649464116,2022-10-01 13:21:26,sms,6,,OUT,off-net,mobile,national,IAM,Morocco,1166,Fes,ADSL,B2C,Home,Prepaid,ABC578734,2022-10-01 14:15:26
+20220911,212665595011,2022-09-11 22:10:47,voice,6,24,IN,off-net,fix,international,International,France,1725,international city,Fibre optique,B2C,Home,Postpaid,ABC292958,2022-09-11 22:34:47
+20221201,212588052259,2022-12-01 06:25:32,sms,5,,IN,off-net,mobile,international,International,Spain,8217,international city,Fibre optique,B2B,Mobile Postpaid,Postpaid,ABC211363,2022-12-01 07:03:32
+20220509,212523216075,2022-05-09 17:03:01,voice,6,4,IN,off-net,fix,international,International,France,5226,international city,Forfaits 199 dhs,B2C,Home,Autres,ABC257496,2022-05-09 17:07:01
+20220325,212614522936,2022-03-25 21:18:46,sms,1,,IN,on-net,mobile,international,International,USA,9869,international city,Forfaits 249 dhs,Autres,Mobile Postpaid,Postpaid,ABC493810,2022-03-25 21:27:46
+20221231,212523791025,2022-12-31 17:44:26,sms,4,,IN,off-net,mobile,international,International,Spain,1955,international city,Forfaits 249 dhs,Autres,Mobile Postpaid,Prepaid,ABC443550,2022-12-31 18:23:26
+20220806,212556773842,2022-08-06 03:45:09,sms,5,,IN,on-net,mobile,international,International,Spain,7821,international city,Data Postpaid,B2B,Mobile Postpaid,Postpaid,ABC716279,2022-08-06 03:53:09
+20230208,212541752374,2023-02-08 06:20:59,voice,9,23,IN,on-net,fix,national,INWI,Morocco,5958,Casablanca,Data Postpaid,B2C,Home,Prepaid,ABC450886,2023-02-08 06:43:59
+20220705,212542635739,2022-07-05 21:12:46,voice,5,16,IN,on-net,fix,international,International,USA,5221,international city,ADSL,B2C,Mobile Postpaid,Autres,ABC471550,2022-07-05 21:28:46
+20220208,212539996779,2022-02-08 22:35:26,sms,6,,OUT,on-net,mobile,national,IAM,Morocco,3520,Casablanca,Forfaits 199 dhs,B2B,Mobile Postpaid,Postpaid,ABC829259,2022-02-08 23:24:26
+20220602,212673636951,2022-06-02 18:06:24,voice,9,34,OUT,on-net,fix,national,IAM,Morocco,6443,Rabat,Forfaits 149 dhs,B2B,Mobile Postpaid,Postpaid,ABC591638,2022-06-02 18:40:24
+20220811,212684168261,2022-08-11 14:36:02,voice,5,43,OUT,off-net,mobile,international,International,USA,6474,international city,ADSL,Autres,Home,Prepaid,ABC421063,2022-08-11 15:19:02
+20220626,212629438144,2022-06-26 17:09:28,voice,1,45,IN,off-net,fix,international,International,France,4867,international city,Forfaits 49 dhs,B2C,Mobile Postpaid,Postpaid,ABC834037,2022-06-26 17:54:28
+20220829,212541473298,2022-08-29 01:28:36,sms,4,,OUT,on-net,fix,international,International,Spain,4888,international city,Forfaits 99 dhs,B2C,Home,Postpaid,ABC224682,2022-08-29 01:56:36
+20221225,212698315757,2022-12-25 23:34:49,sms,4,,OUT,on-net,fix,international,International,USA,1697,international city,Forfaits 149 dhs,Autres,Mobile Prepaid,Prepaid,ABC207753,2022-12-25 23:42:49
+20221107,212585285872,2022-11-07 21:01:27,sms,4,,IN,off-net,fix,national,INWI,Morocco,6879,Casablanca,ADSL,B2B,Mobile Postpaid,Postpaid,ABC374829,2022-11-07 21:19:27
+20220901,212558702087,2022-09-01 03:03:19,sms,5,,IN,off-net,mobile,international,International,France,4442,international city,Forfaits 149 dhs,B2C,Mobile Postpaid,Prepaid,ABC644175,2022-09-01 04:02:19
+20220319,212589916510,2022-03-19 17:46:07,voice,6,51,OUT,off-net,fix,national,IAM,Morocco,3554,Casablanca,Forfaits 49 dhs,B2B,Mobile Postpaid,Postpaid,ABC534063,2022-03-19 18:37:07
+20230103,212512081787,2023-01-03 07:37:43,sms,3,,OUT,off-net,fix,national,IAM,Morocco,1586,Tangier,Forfaits 99 dhs,B2C,Home,Prepaid,ABC770408,2023-01-03 07:51:43
+20220503,212568851541,2022-05-03 13:38:14,sms,6,,IN,on-net,fix,international,International,USA,7950,international city,Data Postpaid,B2C,Mobile Postpaid,Prepaid,ABC925339,2022-05-03 14:33:14
+20220122,212514364473,2022-01-22 01:19:38,sms,1,,IN,on-net,mobile,national,ORANGE,Morocco,5556,Fes,Forfaits 99 dhs,B2C,Mobile Prepaid,Prepaid,ABC397414,2022-01-22 01:20:38
+20230228,212567688948,2023-02-28 11:34:56,sms,7,,IN,on-net,fix,national,ORANGE,Morocco,4893,Fes,ADSL,B2C,Mobile Prepaid,Autres,ABC975090,2023-02-28 11:36:56
+20220407,212557309187,2022-04-07 23:09:16,voice,4,49,OUT,off-net,fix,international,International,USA,7300,international city,Fibre optique,Autres,Mobile Prepaid,Postpaid,ABC793630,2022-04-07 23:58:16
+20220912,212524331530,2022-09-12 07:04:49,sms,7,,IN,on-net,mobile,international,International,USA,1419,international city,Forfaits 49 dhs,B2C,Mobile Prepaid,Autres,ABC920599,2022-09-12 07:53:49
+20221118,212542080968,2022-11-18 21:53:10,voice,5,19,IN,off-net,mobile,national,ORANGE,Morocco,8092,Rabat,MRE,Autres,Home,Autres,ABC735137,2022-11-18 22:12:10
+20220919,212653868377,2022-09-19 22:16:16,voice,7,41,IN,on-net,fix,national,INWI,Morocco,7522,Fes,Forfaits 199 dhs,B2B,Mobile Postpaid,Postpaid,ABC946539,2022-09-19 22:57:16
+20220323,212653203097,2022-03-23 02:39:13,voice,5,48,OUT,on-net,mobile,international,International,France,1228,international city,Forfaits 49 dhs,B2B,Mobile Postpaid,Postpaid,ABC146990,2022-03-23 03:27:13
+20220208,212546583407,2022-02-08 19:32:29,voice,2,57,IN,on-net,fix,international,International,Spain,4764,international city,Data Prepaid,B2C,Mobile Prepaid,Autres,ABC296484,2022-02-08 20:29:29
+20220403,212526309824,2022-04-03 00:40:16,sms,7,,IN,on-net,fix,international,International,Spain,5805,international city,Fibre optique,B2B,Mobile Postpaid,Postpaid,ABC938833,2022-04-03 01:32:16
+20221218,212674228997,2022-12-18 04:57:01,sms,10,,OUT,on-net,fix,international,International,France,8640,international city,Forfaits 49 dhs,B2C,Mobile Prepaid,Prepaid,ABC518880,2022-12-18 05:31:01
+20220821,212652400175,2022-08-21 14:26:32,voice,3,18,IN,on-net,mobile,national,ORANGE,Morocco,6934,Marrakech,MRE,B2C,Mobile Postpaid,Postpaid,ABC540274,2022-08-21 14:44:32
+20220622,212670629976,2022-06-22 14:30:55,sms,2,,IN,on-net,fix,international,International,France,5285,international city,Forfaits 49 dhs,Autres,Home,Autres,ABC452112,2022-06-22 14:36:55
+20221211,212518655072,2022-12-11 19:43:26,voice,2,25,IN,off-net,mobile,national,IAM,Morocco,8660,Tangier,Forfaits 199 dhs,B2B,Mobile Postpaid,Postpaid,ABC540560,2022-12-11 20:08:26
+20221228,212616184801,2022-12-28 16:49:24,sms,7,,IN,off-net,mobile,international,International,France,4192,international city,Data Prepaid,B2B,Mobile Postpaid,Postpaid,ABC333441,2022-12-28 17:04:24
+20230210,212519868685,2023-02-10 23:39:39,sms,7,,OUT,on-net,fix,international,International,France,4898,international city,Forfaits 249 dhs,Autres,Home,Autres,ABC278745,2023-02-11 00:24:39
+20221009,212630195636,2022-10-09 15:10:35,voice,8,57,IN,off-net,mobile,international,International,France,2879,international city,Data Prepaid,B2C,Mobile Postpaid,Autres,ABC362876,2022-10-09 16:07:35
+20220719,212692926430,2022-07-19 20:39:28,voice,10,15,OUT,off-net,mobile,international,International,France,3053,international city,Forfaits 49 dhs,B2B,Mobile Postpaid,Postpaid,ABC529771,2022-07-19 20:54:28
