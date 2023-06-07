@@ -23,7 +23,7 @@ def generate_csv_file(num_rows):
         # date_debut
         row.append(id_date.strftime("%d/%m/%Y %H:%M"))
         # type_even
-        type_even = random.choice(["voice", "sms"])
+        type_even = random.choices(["voice", "sms"], [0.9, 0.1])[0]  # 90% chance of being "voice"
         row.append(type_even)
         # nombre_even
         row.append(random.randint(1, 10))
@@ -40,8 +40,10 @@ def generate_csv_file(num_rows):
         # termination_type
         row.append(random.choice(["on-net", "off-net"]))
         # type_reseau
-        type_reseau = random.choice(["mobile", "fix"])
-        row.append(type_reseau)
+        if type_even == "sms":
+            row.append("mobile")
+        else:
+            row.append(random.choice(["mobile", "fix"]))
         # type_destination
         type_destination = random.choices(["national", "international"], [0.8, 0.2])[0]
         row.append(type_destination)
@@ -61,9 +63,9 @@ def generate_csv_file(num_rows):
             row.append("international city")
         # gamme
         gamme = ""
-        if type_reseau == "fix":
+        if row[8] == "fix":
             gamme = random.choice(["ADSL", "Fibre optique"])
-        elif type_reseau == "mobile":
+        elif row[8] == "mobile":
             if type_destination == "national":
                 gamme = random.choice(["MRE", "Data Prepaid", "Data Postpaid", "Forfaits 99 dhs", "Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"])
             else:
@@ -72,13 +74,13 @@ def generate_csv_file(num_rows):
 
         # marche
         marche = ""
-        if gamme == "Data Prepaid" :
+        if gamme == "Data Prepaid":
             marche = "Mobile Prepaid"
         elif gamme == "Data Postpaid":
             marche = "Mobile Postpaid"
         elif gamme == "ADSL" or gamme == "Fibre optique":
             marche = "Home"
-        elif gamme == "Forfaits 49 dhs" or gamme == "Forfaits 149 dhs"or gamme == "Forfaits 199 dhs"or gamme == "Forfaits 99 dhs"or gamme == "Forfaits 249 dhs":
+        elif gamme in ["Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 99 dhs", "Forfaits 249 dhs"]:
             marche = "Mobile Postpaid"
         else:
             marche = "Autres"
@@ -113,8 +115,6 @@ def generate_csv_file(num_rows):
         writer.writerows(rows)
 
 
-
-
 def generate_dn():
     prefix = "2125" if random.random() < 0.5 else "2126"
     suffix = str(random.randint(10000000, 99999999))
@@ -122,4 +122,4 @@ def generate_dn():
 
 
 # Exemple d'utilisation
-generate_csv_file(1000)  # Génère un fichier CSV avec 1000 lignes
+generate_csv_file(1000000)  # Génère un fichier CSV avec 1000 lignes
