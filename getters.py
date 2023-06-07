@@ -42,12 +42,16 @@ def date(year):
 def getRandomPhone(val, form=""):
    return "".join(["+212", str(random.randint(6, 7)), str(random.randint(10000000, 99999999))])
 
+def getRandomZipCode(val, form=""):
+    year = random.randint(2000, 2099)
+    x = str(random.randint(0, 9))
+    return str(year) + x + "0"
 
 # retourner une liste du type souhaite
 def typeapproved(inData, dtype):
     valid_values = [value for value in inData.split("-") if re.search(DICTIONNAIRE[dtype], value)]
     if len(valid_values) < len(inData.split("-")):
-        print("Au moins une valeur est incorrecte. Veuillez saisir des valeurs conformes au type", dtype)
+        print("")
     return valid_values
 
 
@@ -130,6 +134,7 @@ dataTypes = {
     "datetime": getRandomDate,
     "bool":getRandomBoolean,
     "mdn":getRandomPhone,
+    "zipcode":getRandomZipCode,
     "autoicrement":getCurrentId
 }
 
