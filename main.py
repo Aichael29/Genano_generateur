@@ -2,11 +2,10 @@ import csv
 import random
 from datetime import datetime, timedelta
 
-operator = random.choice(["INWI", "IAM", "ORANGE", "International"])
 def generate_csv_file(num_rows):
     columns = [
         "id_date", "dn", "date_debut", "type_even", "nombre_even", "even_minutes", "direction_appel",
-        "termination_type", "type_reseau", "type_destination", "operator","country",
+        "termination_type", "type_reseau", "type_destination", "operator", "country",
         "profile_id", "city", "gamme", "marche", "segment", "billing_type", "contract_id", "date_fin"
     ]
     start_date = datetime(2022, 1, 1)
@@ -22,7 +21,7 @@ def generate_csv_file(num_rows):
         dn = generate_dn()
         row.append(dn)
         # date_debut
-        row.append(id_date.strftime("%Y-%m-%d %H:%M:%S"))
+        row.append(id_date.strftime("%d/%m/%Y %H:%M"))
         # type_even
         type_even = random.choice(["voice", "sms"])
         row.append(type_even)
@@ -41,86 +40,79 @@ def generate_csv_file(num_rows):
         # termination_type
         row.append(random.choice(["on-net", "off-net"]))
         # type_reseau
-        type_reseau=random.choice(["mobile", "fix"])
+        type_reseau = random.choice(["mobile", "fix"])
         row.append(type_reseau)
         # type_destination
-        type_destination = random.choice(["national", "international"])
-        choices = ["national", type_destination]
-        weights = [0.7, 0.3]
-        row.append(random.choices(choices, weights)[0])
+        type_destination = random.choices(["national", "international"], [0.8, 0.2])[0]
+        row.append(type_destination)
         # operator
         if type_destination == "national":
-            row.append(random.choice(["INWI", "IAM", "ORANGE"]))
+            row.append(random.choices(["INWI", "IAM", "ORANGE"], [0.6, 0.2, 0.2])[0])
+            row.append("Morocco")
         elif type_destination == "international":
             row.append("International")
-
-        # country
-        if type_destination == "national":
-            row.append("Morocco")
-        else:
             row.append(random.choice(["France", "Spain", "USA"]))
-
         # profile_id
         row.append(str(random.randint(1000, 9999)))
         # city
-        if type_destination == "national" and operator in ["INWI", "IAM", "ORANGE"]:  # 20% chance of non-Maroc cities
+        if type_destination == "national":
             row.append(random.choice(["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier"]))
         else:
             row.append("international city")
         # gamme
-        gamme=random.choice(["Fibre optique", "ADSL", "MRE", "Data Prepaid", "Data Postpaid", "Forfaits 99 dhs",
-                       "Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"])
+        gamme = ""
+        if type_reseau == "fix":
+            gamme = random.choice(["ADSL", "Fibre optique"])
+        elif type_reseau == "mobile":
+            if type_destination == "national":
+                gamme = random.choice(["MRE", "Data Prepaid", "Data Postpaid", "Forfaits 99 dhs", "Forfaits 49 dhs", "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"])
+            else:
+                gamme = "Autres"
         row.append(gamme)
 
         # marche
-        marche=random.choice(["Mobile Prepaid", "Mobile Postpaid","Home"])
-        if type_reseau == "mobile":
-            row.append(random.choice(["Mobile Prepaid", "Mobile Postpaid"]))
-        elif type_reseau == "Fix":
-            row.append(random.choice(["Home", "Mobile Postpaid"]))
-        elif gamme == "Data Prepaid":
-            row.append("Mobile Prepaid")
+        marche = ""
+        if gamme == "Data Prepaid" :
+            marche = "Mobile Prepaid"
         elif gamme == "Data Postpaid":
-            row.append("Mobile Postpaid")
-        elif gamme == "MRE":
-            row.append(random.choice(["Mobile Prepaid", "Mobile Postpaid"]))
+            marche = "Mobile Postpaid"
         elif gamme == "ADSL" or gamme == "Fibre optique":
-            row.append("Home")
+            marche = "Home"
+        elif gamme == "Forfaits 49 dhs" or gamme == "Forfaits 149 dhs"or gamme == "Forfaits 199 dhs"or gamme == "Forfaits 99 dhs"or gamme == "Forfaits 249 dhs":
+            marche = "Mobile Postpaid"
         else:
-            row.append(marche)
+            marche = "Autres"
+        row.append(marche)
 
         # segment
-        segment = random.choice(["B2B", "B2C", "Autres"])
         if marche == "Mobile Prepaid":
-            choices = ["B2C", segment]
-            weights = [0.99, 0.01]  # Les poids déterminent la probabilité de chaque choix
-            row.append(random.choices(choices, weights)[0])
+            row.append(random.choices(["B2C", "Autres"], [0.9, 0.1])[0])
         elif marche == "Mobile Postpaid":
-            choices = ["B2B", segment]
-            weights = [0.99, 0.01]  # Les poids déterminent la probabilité de chaque choix
-            row.append(random.choices(choices, weights)[0])
+            row.append(random.choices(["B2B", "Autres"], [0.9, 0.1])[0])
         else:
-            row.append(segment)
+            row.append(random.choice(["B2B", "B2C", "Autres"]))
 
         # billing_type
-        if marche == "Mobile Postpaid":
-            row.append("postpaid")
-        elif marche == "Mobile Prepaid":
+        if marche == "Mobile Prepaid":
             row.append("prepaid")
+        elif marche == "Mobile Postpaid":
+            row.append("postpaid")
         else:
             row.append("Autres")
 
         # contract_id
         row.append("ABC" + str(random.randint(100000, 999999)))
         # date_fin
-        row.append(date_fin.strftime("%Y-%m-%d %H:%M:%S"))
+        row.append(date_fin.strftime("%d/%m/%Y %H:%M"))
 
         rows.append(row)
 
-    with open("Traffic data.csv", "w", newline="") as csvfile:
+    with open("data.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(columns)
         writer.writerows(rows)
+
+
 
 
 def generate_dn():
@@ -128,5 +120,6 @@ def generate_dn():
     suffix = str(random.randint(10000000, 99999999))
     return prefix + suffix
 
+
 # Exemple d'utilisation
-generate_csv_file(10000)  # Génère un fichier CSV avec 10000 lignes
+generate_csv_file(1000)  # Génère un fichier CSV avec 1000 lignes
