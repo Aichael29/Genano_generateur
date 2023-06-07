@@ -8,12 +8,8 @@ def generate_row(fieldnames):
 
 if __name__ == '__main__':
     start = time.time()
-
-    # Nom du fichier horodaté
     path = getFileInfo("path")
     filename = "%s\%s_%s.csv" % (path, getFileInfo("genre"), time.strftime(getFileInfo("dateFormat")))
-
-    # les colonnes
     fieldnames = getkeys(sectionName[0])
     maxRecords = int(getFileInfo("maxRecords"))
 
