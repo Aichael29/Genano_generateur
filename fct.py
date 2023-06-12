@@ -57,10 +57,10 @@ def generate_data_table(num_rows):
             'profile_id': generate_value_from_list(config.get('data', 'profile_ids').split(',')),
             'city': '',
             'gamme': generate_value_from_list(config.get('data', 'gammes').split(',')),
-            'marche': generate_value_from_list(config.get('data', 'marches').split(',')),
+            'marche': '',
             'segment': generate_value_from_list(config.get('data', 'segments').split(',')),
-            'billing_type': generate_value_from_list(config.get('data', 'billing_types').split(',')),
-            'contract_id': config.get('data', 'contract_id_prefix') + str(random.randint(0, config.getint('data', 'max_contract_id'))),
+            'billing_type': '',
+            'contract_id': '',
             'last_timestamp': ''
         }
 
@@ -81,6 +81,22 @@ def generate_data_table(num_rows):
 
         row['last_timestamp'] = (datetime.strptime(row['date_debut'], '%Y-%m-%d %H:%M:%S') + timedelta(minutes=row['even_minutes'])).strftime('%Y-%m-%d %H:%M:%S')
         row['id_date'] = row['date_debut'].split()[0].replace('-', '')
+
+        # Ajout des conditions pour la gamme et le type de facturation
+        if row['gamme'] == 'Fibre optique' or row['gamme'] == 'ADSL':
+            row['marche'] = 'home'
+            row['billing_type'] = 'fix'
+        elif row['gamme'] == 'Data Postpaid':
+            row['marche'] = 'mobil postpaid'
+            row['billing_type'] = 'postpaid'
+        elif row['gamme'] == 'Data Prepaid':
+            row['marche'] = 'mobil prepaid'
+            row['billing_type'] = 'prepaid'
+        else:
+            row['marche'] = generate_value_from_list(config.get('data', 'marches').split(','))
+            row['billing_type'] = generate_value_from_list(config.get('data', 'billing_types').split(','))
+        # Ajout de l'identifiant de contrat
+        row['contract_id'] = config.get('data', 'contract_id_prefix') + str(random.randint(0, config.getint('data', 'max_contract_id')))
 
         data_table.append(row)
     return data_table
