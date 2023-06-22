@@ -83,72 +83,71 @@ def generate_csv_file(num_rows):
             row.append(random.choice(["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier"]))
         else:
             row.append("international city")
-            # segment
+        # segment
+        segment = random.choices(["B2B", "B2C"], [0.30, 0.70])[0]
+        while segment in segment_set:
             segment = random.choices(["B2B", "B2C"], [0.30, 0.70])[0]
-            while segment in segment_set:
-                segment = random.choices(["B2B", "B2C"], [0.30, 0.70])[0]
-            segment_set.add(segment)
-            row.append(segment)
+        segment_set.add(segment)
+        row.append(segment)
 
-            # billing_type
-            billing_type = ""
+        # billing_type
+        billing_type = ""
+        if row[8] == "fix":
+            billing_type = "postpaid"
+        elif segment == "B2B":
+            billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.97, 0.02, 0.01])[0]
+        elif segment == "B2C":
+            billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.19, 0.80, 0.01])[0]
+        while billing_type in billing_type_set:
             if row[8] == "fix":
-                billing_type = "postpaid"
+                 billing_type = "postpaid"
             elif segment == "B2B":
                 billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.97, 0.02, 0.01])[0]
             elif segment == "B2C":
                 billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.19, 0.80, 0.01])[0]
-            while billing_type in billing_type_set:
-                if row[8] == "fix":
-                    billing_type = "postpaid"
-                elif segment == "B2B":
-                    billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.97, 0.02, 0.01])[0]
-                elif segment == "B2C":
-                    billing_type = random.choices(["postpaid", "prepaid", "Autres"], [0.19, 0.80, 0.01])[0]
-            billing_type_set.add(billing_type)
-            row.append(billing_type)
+        billing_type_set.add(billing_type)
+        row.append(billing_type)
 
-            # gamme
-            gamme = ""
-            if row[8] == "fix":
+        # gamme
+        gamme = ""
+        if row[8] == "fix":
                 gamme = random.choice(["ADSL", "Fibre optique"])
-            elif row[8] == "mobile":
-                if billing_type == "prepaid":
+        elif row[8] == "mobile":
+            if billing_type == "prepaid":
                     gamme = "Data Prepaid"
-                else:
+            else:
                     gamme = random.choice(["MRE", "Data Postpaid", "Forfaits 99 dhs", "Forfaits 49 dhs",
                                            "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"])
-            while gamme in gamme_set:
-                if row[8] == "fix":
+        while gamme in gamme_set:
+            if row[8] == "fix":
                     gamme = random.choice(["ADSL", "Fibre optique"])
-                elif row[8] == "mobile":
-                    if billing_type == "prepaid":
+            elif row[8] == "mobile":
+                if billing_type == "prepaid":
                         gamme = "Data Prepaid"
-                    else:
+                else:
                         gamme = random.choice(["MRE", "Data Postpaid", "Forfaits 99 dhs", "Forfaits 49 dhs",
                                                "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"])
-            gamme_set.add(gamme)
-            row.append(gamme)
+        gamme_set.add(gamme)
+        row.append(gamme)
 
-            # marche
-            marche = ""
-            if gamme == "Data Prepaid":
-                marche = "Mobile Prepaid"
-            elif gamme == "Data Postpaid":
-                marche = "Mobile Postpaid"
-            elif gamme in ["MRE", "Forfaits 99 dhs", "Forfaits 49 dhs",
+        # marche
+        marche = ""
+        if gamme == "Data Prepaid":
+            marche = "Mobile Prepaid"
+        elif gamme == "Data Postpaid":
+            marche = "Mobile Postpaid"
+        elif gamme in ["MRE", "Forfaits 99 dhs", "Forfaits 49 dhs",
                            "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"]:
                 marche = "Mobile Consumer"
-            while marche in marche_set:
-                if gamme == "Data Prepaid":
-                    marche = "Mobile Prepaid"
-                elif gamme == "Data Postpaid":
-                    marche = "Mobile Postpaid"
-                elif gamme in ["MRE", "Forfaits 99 dhs", "Forfaits 49 dhs",
-                               "Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"]:
-                    marche = "Mobile Consumer"
-            marche_set.add(marche)
-            row.append(marche)
+        while marche in marche_set:
+             if gamme == "Data Prepaid":
+                marche = "Mobile Prepaid"
+             elif gamme == "Data Postpaid":
+                marche = "Mobile Postpaid"
+             elif gamme in ["MRE", "Forfaits 99 dhs", "Forfaits 49 dhs","Forfaits 149 dhs", "Forfaits 199 dhs", "Forfaits 249 dhs"]:
+                marche = "Mobile Consumer"
+        marche_set.add(marche)
+        row.append(marche)
 
 
         # contract_id
@@ -162,7 +161,7 @@ def generate_csv_file(num_rows):
 
         rows.append(row)
 
-    with open("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/traffic.csv", "w", newline="") as csvfile:
+    with open("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/a.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(columns)
         writer.writerows(rows)
@@ -196,4 +195,4 @@ def generate_dn():
 
 
 # Exemple d'utilisation
-generate_csv_file(1000)  # Génère un fichier CSV avec x lignes
+generate_csv_file(10)  # Génère un fichier CSV avec x lignes
